@@ -26,24 +26,63 @@ main {
   padding-bottom: 20px;
 }
 
-/* header {
-  position: relative;
-  top: 0px;
-  left: 0px;
+button {
+  background-color: #534978;
+  border-radius: 30px;
+  font-size: 24px;
+  color: #C9CED5;
+  box-shadow: #FCF6B1 0 0 10px;
+  margin: 20px;
+  padding: 15px;
 }
-
-footer {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-} */
 
 h1 {
   font-size: 42pt;
+  margin-top: 0px;
 }
 
 h2 {
   font-size: 32pt;
+}
+
+form {
+  width: 100%;
+  text-align: center;
+}
+
+input[type=text] {
+  width: 80%;
+  padding: 10px;
+  background-color: #534978;
+  color: #C9CED5;
+  font-size: 16pt;
+  margin: 10px;
+  box-shadow: #FCF6B1 0 0 10px;
+}
+
+/*
+  Information for making a scrollable container retrieved from:
+  https://youtu.be/bkwONqZ13kU?si=P01MEyiQQhx878ZW
+*/
+div {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 350px;
+  overflow: hidden;
+  overflow-x: scroll;
+  scrollbar-color: #C9CED5 #534978;
+  padding-bottom: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+div section {
+  text-wrap: wrap;
+  margin: 10px;
+  background-color: #534978;
+  text-align: center;
+  padding: 10px;
+  box-shadow: white 0 0 10px;
 }
 
 header, footer {
@@ -56,6 +95,7 @@ header, footer {
 h1, h2 {
   text-shadow: #F7B32B 0 0 7px;
   text-decoration: underline;
+  font-family: "Playball", sans-serif;
 }
 
 p, h1, h2, label {
@@ -64,10 +104,6 @@ p, h1, h2, label {
 
 h1, footer p {
   text-align: center;
-}
-
-h1, h2 {
- font-family: "Playball", sans-serif;
 }
 
 header img {
@@ -80,7 +116,7 @@ footer p {
   margin-bottom: 2px;
 }
 
-main > section , main > section > section {
+main > section, main > section > section {
   display: flex;
 }
 
@@ -91,12 +127,24 @@ main > section {
 }
 
 main > section > section {
-  display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-start;
   padding: 5px;
   background-color: #231C3B;
   width: 40%;
   box-shadow: #FCF6B1 0 0 10px;
+}
+
+#results {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin-top: 60px;
+  display: none;
+}
+
+#results > section {
+  width: 88%;
 }
