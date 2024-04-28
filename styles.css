@@ -1,0 +1,102 @@
+/*
+  Header comment
+*/
+
+body {
+  background-image: url("img/retro-vaporwave-background.jpeg");
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Roboto", sans-serif;
+}
+
+a {
+  color: #FCF6B1;
+}
+
+a:visited {
+  color: #F7B32B;
+}
+
+main {
+  background-color: #534978;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* header {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+} */
+
+h1 {
+  font-size: 42pt;
+}
+
+h2 {
+  font-size: 32pt;
+}
+
+header, footer {
+  background-color: #231C3B;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+h1, h2 {
+  text-shadow: #F7B32B 0 0 7px;
+  text-decoration: underline;
+}
+
+p, h1, h2, label {
+  color: #C9CED5;
+}
+
+h1, footer p {
+  text-align: center;
+}
+
+h1, h2 {
+ font-family: "Playball", sans-serif;
+}
+
+header img {
+  width: 25%;
+  border: 1px #FCF6B1 solid;
+}
+
+footer p {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+main > section , main > section > section {
+  display: flex;
+}
+
+main > section {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+main > section > section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 5px;
+  background-color: #231C3B;
+  width: 40%;
+  box-shadow: #FCF6B1 0 0 10px;
+}
