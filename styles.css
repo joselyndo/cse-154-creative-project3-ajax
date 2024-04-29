@@ -45,7 +45,13 @@ h2 {
   font-size: 32pt;
 }
 
-form {
+h3 {
+  font-size: 24pt;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+span {
   width: 100%;
   text-align: center;
 }
@@ -92,13 +98,13 @@ header, footer {
   padding-bottom: 5px;
 }
 
-h1, h2 {
+h1, h2, h3 {
   text-shadow: #F7B32B 0 0 7px;
   text-decoration: underline;
   font-family: "Playball", sans-serif;
 }
 
-p, h1, h2, label {
+p, h1, h2, h3, label {
   color: #C9CED5;
 }
 
@@ -126,7 +132,7 @@ main > section {
   justify-content: space-evenly;
 }
 
-main > section > section {
+#deals-and-lookup > section {
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
@@ -143,8 +149,32 @@ main > section > section {
   margin-top: 60px;
 }
 
-#esults-section > section {
+#results-section > h1 {
+  margin-top: 5%;
+  margin-bottom: 10px;
+}
+
+#results-section > section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   width: 88%;
+}
+
+#results-section > section section {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  max-height: 300px;
+  background-color: #231C3B;
+  box-shadow: #FCF6B1 0 0 10px;
+  padding: 5px;
+  margin: 2%;
+  text-align: center;
+}
+
+#results-section > section section img {
+  height: 100px;
 }
 
 .visible {

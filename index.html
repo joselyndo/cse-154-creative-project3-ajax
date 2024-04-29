@@ -19,7 +19,7 @@
   </header>
   <main>
     <h1>Welcome to all-nighter gamer deals!</h1>
-    <section>
+    <section id="deals-and-lookup">
       <section>
         <h2>Video Game Deals</h2>
         <section>
@@ -49,23 +49,23 @@
             </section>
           </div>
         </section>
-        <button>View more deals</button>
+        <button id="dealsBtn">View more deals</button>
       </section>
       <section>
         <!-- Check out the form element again -->
         <h2>Video Game Lookup</h2>
         <br>
-        <form>
-          <label for="video-game-search-bar">Enter a video game title below</label>
-          <br>
-          <input type="text" id="video-game-search-bar">
-          <br>
-          <button>Search</button>
-        </form>
+        <span>
+          <label>
+            Enter a video game title below
+            <input type="text" name="searchBar">
+          </label>
+        </span>
+        <br>
+        <button id="searchBtn">Search</button>
       </section>
     </section>
     <section id="results-section" class="invisible">
-      <h1>Results or Deals</h1>
     </section>
   </main>
   <footer>

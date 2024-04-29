@@ -9,14 +9,17 @@
   const DEALS_ENDPOINT = "deals?";
   const GAMES_ENDPOINT = "games?";
   const METACRITIC_BASE_URL = "https://www.metacritic.com/";
+  const DEALS_REDIRECT = "https://www.cheapshark.com/redirect?dealID=";
+  const THUMBNAIL_ALT = " thumbail";
+  const CHEAPEST_PRICE = "Cheapest price: $";
 
   window.addEventListener("load", init);
 
   function init() {
-    let dealsBtn = document.querySelector("section > button");
+    let dealsBtn = document.getElementById("dealsBtn");
     dealsBtn.addEventListener("click", getMoreDeals);
 
-    let searchBtn = document.querySelector("form > button");
+    let searchBtn = document.getElementById("searchBtn");
     searchBtn.addEventListener("click", searchGames);
   }
 
@@ -46,7 +49,7 @@
       let response = await fetch(BASE_URL + GAMES_ENDPOINT + "title=" + searchInput);
       await statusCheck(response);
       response = await response.json();
-      displayGames(response, resultsContainer);
+      displayGames(response);
     } catch (error) {
       handleError();
     }
@@ -56,15 +59,27 @@
     let resultsContainer = document.querySelector("#results-section section");
 
     for (let result = 0; result < response.length; result++) {
-
+      let gameThumbnail = document.createElement("img");
+      gameThumbnail.src = response[result].thumb;
+      gameThumbnail.alt = response[result].external + THUMBNAIL_ALT;
+      let gameName = document.createElement("h3");
+      gameName.textContent = response[result].external;
+      let price = document.createElement("p");
+      price.textContent = CHEAPEST_PRICE + response[result].cheapest;
+      let gameResult = document.createElement("section");
+      // add deal link
+      gameResult.appendChild(gameThumbnail);
+      gameResult.appendChild(gameName);
+      gameResult.appendChild(price);
+      resultsContainer.appendChild(gameResult);
     }
-
   }
 
   function revealResults() {
     let resultsSection = document.getElementById("results-section");
-    if (!resultsSection.checkVisibility) {
-      resultsSection.classList.replace("invisible", "visible");
+    if (!resultsSection.checkVisibility()) {
+      resultsSection.classList.remove("invisible");
+      resultsSection.classList.add("visible");
     }
   }
 
@@ -76,7 +91,11 @@
   }
 
   function handleError() {
-
+    let resultsSection = document.getElementById("results-section");
+    resultsSection.innerHTML = "";
+    let errorMessage = document.createElement("p");
+    errorMessage.textContent = "Try another search term or try again later";
+    resultsSection.appendChild(errorMessage);
   }
 
 })();
