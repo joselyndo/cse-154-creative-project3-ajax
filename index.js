@@ -18,6 +18,7 @@
 
   window.addEventListener("load", init);
 
+  /** Initializes the main page */
   function init() {
     addDealsToHome();
 
@@ -28,12 +29,18 @@
     searchBtn.addEventListener("click", searchGames);
   }
 
+  /** Adds 5 video game deals to the Video Game Deals section */
   function addDealsToHome() {
     let dealsPreview = document.querySelector("div");
     dealsPreview.innerHTML = "";
     queryDeals(BASE_URL + DEALS_ENDPOINT + CURR_ON_SALE + "&pageSize=5", dealsPreview);
   }
 
+  /**
+   * Queries for the given url to add results into the given dealsContainer
+   * @param {String} url - the url to query.
+   * @param {HTMLElement} dealsContainer - the HTML element that will hold the resulting deals
+   */
   async function queryDeals(url, dealsContainer) {
     try {
       let response = await fetch(url);
@@ -45,6 +52,7 @@
     }
   }
 
+  /** Populates the results section with more deals */
   function getMoreDeals() {
     let resultsSection = document.getElementById("results-section");
     resultsSection.innerHTML = "";
@@ -59,11 +67,17 @@
     revealResults();
   }
 
+  /** Handles the output of a valid query for deals */
   function handleDealsReponse(response, container) {
     let deals = createDeals(response);
     addToDealsContainer(deals, container);
   }
 
+  /**
+   * Converts the given response to an array of HTMLElements to be displayed on the webpage as deals
+   * @param {JSON[]} response - an array containing JSON objects for each deal
+   * @return {HTMLElement[]} an array containing HTML elements for each deal
+   */
   function createDeals(response) {
     let dealsArr = [];
     for (let deal = 0; deal < response.length; deal++) {
@@ -86,12 +100,18 @@
     return dealsArr;
   }
 
+  /**
+   * Adds video game deals to the webpage
+   * @param {HTMLElement[]} deals - an array of HTML elements representing deals to be displayed
+   * @param {HTMLElement} container - the HTML element to hold and display the deals
+   */
   function addToDealsContainer(deals, container) {
     for (let deal = 0; deal < deals.length; deal++) {
       container.appendChild(deals[deal]);
     }
   }
 
+  /** Searches for and displays games specified by the user input */
   function searchGames() {
     let searchBar = document.getElementById("search-bar");
     let resultsHeader = document.createElement("h1");
@@ -106,6 +126,10 @@
     revealResults();
   }
 
+  /**
+   * Queries for a list of games matching the given search input
+   * @param {String} searchInput - a keyword or video game title to query for
+   */
   async function queryListOfGames(searchInput) {
     try {
       let queryURL = BASE_URL + GAMES_ENDPOINT + "title=" + searchInput;
@@ -126,6 +150,10 @@
     }
   }
 
+  /**
+   * Displays information regarding the current price of games
+   * @param {Response} response - a Response containing an array of JSON elements to display
+   */
   function displayGames(response) {
     let resultsContainer = document.querySelector("#results-section section");
 
@@ -146,12 +174,22 @@
     }
   }
 
+  /**
+   * Creates an element to hold text content
+   * @param {String} content - the message that a paragraph element will hold
+   * @return {HTMLParagraphElement} an element containing text to be displayed
+   */
   function createPElement(content) {
     let pElement = document.createElement("p");
     pElement.textContent = content;
     return pElement;
   }
 
+  /**
+   * Creates an element that links to another page
+   * @param {String} link - a String URL to a webpage
+   * @return {HTMLAnchorElement} an element containing the given link
+   */
   function createDealLink(link) {
     let dealLink = document.createElement("a");
     dealLink.href = link;
@@ -160,10 +198,12 @@
     return dealLink;
   }
 
+  /** Displays a message saying that no video game results were found */
   function displayNoResults() {
     addMessage("No results found");
   }
 
+  /** Reveals the results section */
   function revealResults() {
     let resultsSection = document.getElementById("results-section");
     if (!resultsSection.checkVisibility()) {
@@ -172,6 +212,13 @@
     }
   }
 
+  /**
+   * Checks to see if the three selected cards make up a valid set. This is done by comparing each
+   * of the type of attribute against the other two cards. If each four attributes for each card are
+   * either all the same or all different, then the cards make a set. If not, they do not make a set
+   * @param {Promise<Response>} res - the response to evaluate the status code of
+   * @return {Promise<Response>} a valid response
+   */
   async function statusCheck(res) {
     if (!res.ok) {
       throw new Error(await res.text());
@@ -179,14 +226,27 @@
     return res;
   }
 
+  /**
+   * Displays a message saying that an error occurred and that the deals cannot be displayed
+   * @param {HTMLElement} dealsContainer - the element that will hold the message
+   */
   function handleDealsError(dealsContainer) {
     addMessage("Error: unable to display deals", dealsContainer);
   }
 
+  /**
+   * Displays a message saying that an error occurred and
+   * that the lookup should be done again later
+   */
   function handleLookupError() {
     addMessage("Error: please try again later", document.getElementById("results-section"));
   }
 
+  /**
+   * Adds the given message to the given container
+   * @param {String} message - the message to display
+   * @param {HTMLElement} messageContainer - the element that will hold the message
+   */
   function addMessage(message, messageContainer) {
     let errorMessage = document.createElement("p");
     errorMessage.textContent = message;

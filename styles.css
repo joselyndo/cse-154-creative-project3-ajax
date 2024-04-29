@@ -176,7 +176,7 @@ main > section {
   display: flex;
   flex-direction: column;
   width: 25%;
-  max-height: 300px;
+  max-height: max-content;
   background-color: #231C3B;
   box-shadow: #FCF6B1 0 0 10px;
   padding-top: 5px;
@@ -185,7 +185,6 @@ main > section {
   padding-bottom: 15px;
   margin: 2%;
   text-align: center;
-  max-height: max-content;
 }
 
 #results-section > section section img {
