@@ -10,7 +10,7 @@
   const GAMES_ENDPOINT = "games?";
   const DEALS_REDIRECT = "https://www.cheapshark.com/redirect?dealID=";
   const SEARCH_EXACT = "&exact=1";
-  const CURR_ON_SALE = "onSale=1"
+  const CURR_ON_SALE = "onSale=1";
   const THUMBNAIL_ALT = " thumbnail";
   const NORMAL_PRICE = "Normal price: $";
   const CURR_PRICE = "Current price: $";
@@ -28,7 +28,7 @@
     searchBtn.addEventListener("click", searchGames);
   }
 
-  async function addDealsToHome() {
+  function addDealsToHome() {
     let dealsPreview = document.querySelector("div");
     dealsPreview.innerHTML = "";
     queryDeals(BASE_URL + DEALS_ENDPOINT + CURR_ON_SALE + "&pageSize=5", dealsPreview);
@@ -52,8 +52,6 @@
     let dealsHeader = document.createElement("h1");
     dealsHeader.textContent = "Deals";
     resultsSection.appendChild(dealsHeader);
-
-    resultsSection.appendChild(document.createElement("br"));
 
     let resultsContainer = document.createElement("section");
     queryDeals(BASE_URL + DEALS_ENDPOINT + CURR_ON_SALE, resultsContainer);

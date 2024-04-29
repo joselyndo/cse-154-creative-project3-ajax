@@ -84,11 +84,8 @@ div {
   padding-bottom: 20px;
   margin-left: 5px;
   margin-right: 5px;
+  justify-content: space-evenly;
 }
-
-/* div p {
-  text-align: center;
-} */
 
 div section {
   text-wrap: wrap;
@@ -152,7 +149,7 @@ main > section {
   overflow: hidden;
 }
 
-#esults-section {
+#results-section {
   flex-direction: column;
   align-content: center;
   margin-top: 60px;
@@ -163,7 +160,7 @@ main > section {
   margin-bottom: 10px;
 }
 
-#results-section > p {
+#results-section > p, #results-section > section > p {
   text-align: center;
   font-size: 36pt;
 }
@@ -188,6 +185,7 @@ main > section {
   padding-bottom: 15px;
   margin: 2%;
   text-align: center;
+  max-height: max-content;
 }
 
 #results-section > section section img {
