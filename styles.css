@@ -1,5 +1,10 @@
 /*
-  Header comment
+  Joselyn Do
+  April 29th, 2024
+  Section AB: Elias & Quinton
+
+  This is the styles.css file adding the styling to the Video Game Deals webpage. The theme of the
+  webpage is nighttime vaporwave where the color scheme is purple, yellow, and white.
 */
 
 body {
@@ -94,6 +99,7 @@ div section {
   text-align: center;
   padding: 10px;
   box-shadow: white 0 0 10px;
+  min-width: 250px;
 }
 
 header, footer {

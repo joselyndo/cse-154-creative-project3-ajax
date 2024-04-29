@@ -1,5 +1,11 @@
 /**
- * Header comment
+ * Joselyn Do
+ * April 29th, 2024
+ * Section AB: Elias & Quinton
+ *
+ * This is the index.js file adding the functionality to the Video Game Deals webpage.
+ * The functionality includes obtaining deals or video games for the user and displaying results
+ * for the user.
  */
 
 "use strict";
@@ -11,6 +17,7 @@
   const DEALS_REDIRECT = "https://www.cheapshark.com/redirect?dealID=";
   const SEARCH_EXACT = "&exact=1";
   const CURR_ON_SALE = "onSale=1";
+  const RESULTS = "Results for \"";
   const THUMBNAIL_ALT = " thumbnail";
   const NORMAL_PRICE = "Normal price: $";
   const CURR_PRICE = "Current price: $";
@@ -67,7 +74,11 @@
     revealResults();
   }
 
-  /** Handles the output of a valid query for deals */
+  /**
+   * Handles the output of a valid query for deals
+   * @param {JSON[]} response - an array containing JSON objects for each deal
+   * @param {HTMLElement} container - the HTML element that will hold the resulting deals
+   */
   function handleDealsReponse(response, container) {
     let deals = createDeals(response);
     addToDealsContainer(deals, container);
@@ -115,7 +126,7 @@
   function searchGames() {
     let searchBar = document.getElementById("search-bar");
     let resultsHeader = document.createElement("h1");
-    resultsHeader.textContent = "Results for " + "\"" + searchBar.value + "\"";
+    resultsHeader.textContent = RESULTS + searchBar.value + "\"";
 
     let resultsContainer = document.createElement("section");
     let resultsSection = document.getElementById("results-section");
