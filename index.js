@@ -30,8 +30,6 @@
 
   function searchGames() {
     let searchBar = document.querySelector("input");
-    // searchbar.value = the title put in
-
     let resultsHeader = document.createElement("h1");
     resultsHeader.textContent = "Results for " + "\"" + searchBar.value + "\"";
 
@@ -49,7 +47,11 @@
       let response = await fetch(BASE_URL + GAMES_ENDPOINT + "title=" + searchInput);
       await statusCheck(response);
       response = await response.json();
-      displayGames(response);
+      if (response.length > 0) {
+        displayGames(response);
+      } else {
+        displayNoResults();
+      }
     } catch (error) {
       handleError();
     }
@@ -62,17 +64,29 @@
       let gameThumbnail = document.createElement("img");
       gameThumbnail.src = response[result].thumb;
       gameThumbnail.alt = response[result].external + THUMBNAIL_ALT;
+
       let gameName = document.createElement("h3");
       gameName.textContent = response[result].external;
+
       let price = document.createElement("p");
       price.textContent = CHEAPEST_PRICE + response[result].cheapest;
+
+      let dealLink = document.createElement("a");
+      dealLink.href = DEALS_REDIRECT + response[result].cheapestDealID;
+      dealLink.target = "_blank";
+      dealLink.textContent = "Go to deal";
+
       let gameResult = document.createElement("section");
-      // add deal link
       gameResult.appendChild(gameThumbnail);
       gameResult.appendChild(gameName);
       gameResult.appendChild(price);
+      gameResult.appendChild(dealLink);
       resultsContainer.appendChild(gameResult);
     }
+  }
+
+  function displayNoResults() {
+    addMessage("No results found");
   }
 
   function revealResults() {
@@ -91,10 +105,13 @@
   }
 
   function handleError() {
+    addMessage("Error: try again later");
+  }
+
+  function addMessage(message) {
     let resultsSection = document.getElementById("results-section");
-    resultsSection.innerHTML = "";
     let errorMessage = document.createElement("p");
-    errorMessage.textContent = "Try another search term or try again later";
+    errorMessage.textContent = message;
     resultsSection.appendChild(errorMessage);
   }
 
