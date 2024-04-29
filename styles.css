@@ -66,6 +66,10 @@ input[type="text"] {
   box-shadow: #FCF6B1 0 0 10px;
 }
 
+input[type="checkbox"] {
+  margin: 20px;
+}
+
 /*
   Information for making a scrollable container retrieved from:
   https://youtu.be/bkwONqZ13kU?si=P01MEyiQQhx878ZW
@@ -81,6 +85,10 @@ div {
   margin-left: 5px;
   margin-right: 5px;
 }
+
+/* div p {
+  text-align: center;
+} */
 
 div section {
   text-wrap: wrap;
@@ -141,6 +149,7 @@ main > section {
   background-color: #231C3B;
   width: 40%;
   box-shadow: #FCF6B1 0 0 10px;
+  overflow: hidden;
 }
 
 #esults-section {

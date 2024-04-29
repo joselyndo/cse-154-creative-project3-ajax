@@ -8,14 +8,19 @@
   const BASE_URL = "https://www.cheapshark.com/api/1.0/";
   const DEALS_ENDPOINT = "deals?";
   const GAMES_ENDPOINT = "games?";
-  const METACRITIC_BASE_URL = "https://www.metacritic.com/";
   const DEALS_REDIRECT = "https://www.cheapshark.com/redirect?dealID=";
-  const THUMBNAIL_ALT = " thumbail";
-  const CHEAPEST_PRICE = "Cheapest price: $";
+  const SEARCH_EXACT = "&exact=1";
+  const CURR_ON_SALE = "onSale=1"
+  const THUMBNAIL_ALT = " thumbnail";
+  const NORMAL_PRICE = "Normal price: $";
+  const CURR_PRICE = "Current price: $";
+  const CURR_CHEAPEST_PRICE = "Current cheapest price: $";
 
   window.addEventListener("load", init);
 
   function init() {
+    addDealsToHome();
+
     let dealsBtn = document.getElementById("deals-btn");
     dealsBtn.addEventListener("click", getMoreDeals);
 
@@ -23,17 +28,78 @@
     searchBtn.addEventListener("click", searchGames);
   }
 
-  function getMoreDeals() {
-    revealResults();
+  async function addDealsToHome() {
+    let dealsPreview = document.querySelector("div");
+    dealsPreview.innerHTML = "";
+    queryDeals(BASE_URL + DEALS_ENDPOINT + CURR_ON_SALE + "&pageSize=5", dealsPreview);
+  }
 
+  async function queryDeals(url, dealsContainer) {
+    try {
+      let response = await fetch(url);
+      await statusCheck(response);
+      response = await response.json();
+      handleDealsReponse(response, dealsContainer);
+    } catch (error) {
+      handleDealsError(dealsContainer);
+    }
+  }
+
+  function getMoreDeals() {
+    let resultsSection = document.getElementById("results-section");
+    resultsSection.innerHTML = "";
+
+    let dealsHeader = document.createElement("h1");
+    dealsHeader.textContent = "Deals";
+    resultsSection.appendChild(dealsHeader);
+
+    resultsSection.appendChild(document.createElement("br"));
+
+    let resultsContainer = document.createElement("section");
+    queryDeals(BASE_URL + DEALS_ENDPOINT + CURR_ON_SALE, resultsContainer);
+    resultsSection.appendChild(resultsContainer);
+    revealResults();
+  }
+
+  function handleDealsReponse(response, container) {
+    let deals = createDeals(response);
+    addToDealsContainer(deals, container);
+  }
+
+  function createDeals(response) {
+    let dealsArr = [];
+    for (let deal = 0; deal < response.length; deal++) {
+      let gameThumbnail = document.createElement("img");
+      gameThumbnail.src = response[deal].thumb;
+      gameThumbnail.alt = response[deal].title + THUMBNAIL_ALT;
+
+      let title = document.createElement("h3");
+      title.textContent = response[deal].title;
+
+      let dealSection = document.createElement("section");
+      dealSection.appendChild(gameThumbnail);
+      dealSection.appendChild(title);
+      dealSection.appendChild(createPElement(NORMAL_PRICE + response[deal].normalPrice));
+      dealSection.appendChild(createPElement(CURR_PRICE + response[deal].salePrice));
+      dealSection.appendChild(createDealLink(DEALS_REDIRECT + response[deal].dealID));
+      dealsArr.push(dealSection);
+    }
+
+    return dealsArr;
+  }
+
+  function addToDealsContainer(deals, container) {
+    for (let deal = 0; deal < deals.length; deal++) {
+      container.appendChild(deals[deal]);
+    }
   }
 
   function searchGames() {
-    let searchBar = document.querySelector("input");
+    let searchBar = document.getElementById("search-bar");
     let resultsHeader = document.createElement("h1");
     resultsHeader.textContent = "Results for " + "\"" + searchBar.value + "\"";
 
-    let resultsContainer = document.createElement("section"); // the section to contain the results
+    let resultsContainer = document.createElement("section");
     let resultsSection = document.getElementById("results-section");
     resultsSection.innerHTML = "";
     resultsSection.appendChild(resultsHeader);
@@ -44,7 +110,12 @@
 
   async function queryListOfGames(searchInput) {
     try {
-      let response = await fetch(BASE_URL + GAMES_ENDPOINT + "title=" + searchInput);
+      let queryURL = BASE_URL + GAMES_ENDPOINT + "title=" + searchInput;
+      if (document.getElementById("checkbox").checked) {
+        queryURL += SEARCH_EXACT;
+      }
+
+      let response = await fetch(queryURL);
       await statusCheck(response);
       response = await response.json();
       if (response.length > 0) {
@@ -53,7 +124,7 @@
         displayNoResults();
       }
     } catch (error) {
-      handleError();
+      handleLookupError();
     }
   }
 
@@ -68,21 +139,27 @@
       let gameName = document.createElement("h3");
       gameName.textContent = response[result].external;
 
-      let price = document.createElement("p");
-      price.textContent = CHEAPEST_PRICE + response[result].cheapest;
-
-      let dealLink = document.createElement("a");
-      dealLink.href = DEALS_REDIRECT + response[result].cheapestDealID;
-      dealLink.target = "_blank";
-      dealLink.textContent = "Go to deal";
-
       let gameResult = document.createElement("section");
       gameResult.appendChild(gameThumbnail);
       gameResult.appendChild(gameName);
-      gameResult.appendChild(price);
-      gameResult.appendChild(dealLink);
+      gameResult.appendChild(createPElement(CURR_CHEAPEST_PRICE + response[result].cheapest));
+      gameResult.appendChild(createDealLink(DEALS_REDIRECT + response[result].cheapestDealID));
       resultsContainer.appendChild(gameResult);
     }
+  }
+
+  function createPElement(content) {
+    let pElement = document.createElement("p");
+    pElement.textContent = content;
+    return pElement;
+  }
+
+  function createDealLink(link) {
+    let dealLink = document.createElement("a");
+    dealLink.href = link;
+    dealLink.target = "_blank";
+    dealLink.textContent = "Go to deal";
+    return dealLink;
   }
 
   function displayNoResults() {
@@ -104,43 +181,17 @@
     return res;
   }
 
-  function handleError() {
-    addMessage("Error: try again later");
+  function handleDealsError(dealsContainer) {
+    addMessage("Error: unable to display deals", dealsContainer);
   }
 
-  function addMessage(message) {
-    let resultsSection = document.getElementById("results-section");
+  function handleLookupError() {
+    addMessage("Error: please try again later", document.getElementById("results-section"));
+  }
+
+  function addMessage(message, messageContainer) {
     let errorMessage = document.createElement("p");
     errorMessage.textContent = message;
-    resultsSection.appendChild(errorMessage);
+    messageContainer.appendChild(errorMessage);
   }
-
 })();
-
-/**
- * Things to consider
- * Redirect to deal
- *  https://www.cheapshark.com/redirect?dealID={id}
- * List of deals
- *  https://www.cheapshark.com/api/1.0/deals?
- *    pageNumber,pageSize, desc,lowerPrice, upperPrice, metacritic,
- *    steamRating, maxAge, title, exact, onSale
- *    sortBy
- *      DealRating, Title, Savings, Price, Metacritic, Reviews, Release, Store, Recent
- * Deal lookup
- *  https://www.cheapshark.com/api/1.0/deals?id=
- *  id
- * List of Games
- *  https://www.cheapshark.com/api/1.0/games?
- *  title, steamAppID,limt, exact
- * Game look up
- *  https://www.cheapshark.com/api/1.0/games?id=
- * id
- */
-
-// Deals or search up games
-// Deals > check out deals button
-// Games
-// Enter title (to get list of games)
-//  Click a game = pulls up deals (use game lookup)
-// Click a specific deal = Deal lookup
