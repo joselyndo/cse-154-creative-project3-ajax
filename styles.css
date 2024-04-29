@@ -137,17 +137,20 @@ main > section > section {
   box-shadow: #FCF6B1 0 0 10px;
 }
 
-#results {
-  display: none;
+#esults-section {
   flex-direction: column;
   align-content: center;
   margin-top: 60px;
 }
 
-#results > section {
+#esults-section > section {
   width: 88%;
 }
 
 .visible {
   display: flex;
+}
+
+.invisible {
+  display: none;
 }

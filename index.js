@@ -10,9 +10,75 @@
   const GAMES_ENDPOINT = "games?";
   const METACRITIC_BASE_URL = "https://www.metacritic.com/";
 
+  window.addEventListener("load", init);
+
   function init() {
-    // add event listener to logo image in header
+    let dealsBtn = document.querySelector("section > button");
+    dealsBtn.addEventListener("click", getMoreDeals);
+
+    let searchBtn = document.querySelector("form > button");
+    searchBtn.addEventListener("click", searchGames);
   }
+
+  function getMoreDeals() {
+    revealResults();
+
+  }
+
+  function searchGames() {
+    let searchBar = document.querySelector("input");
+    // searchbar.value = the title put in
+
+    let resultsHeader = document.createElement("h1");
+    resultsHeader.textContent = "Results for " + "\"" + searchBar.value + "\"";
+
+    let resultsContainer = document.createElement("section"); // the section to contain the results
+    let resultsSection = document.getElementById("results-section");
+    resultsSection.innerHTML = "";
+    resultsSection.appendChild(resultsHeader);
+    resultsSection.appendChild(resultsContainer);
+    queryListOfGames(searchBar.value);
+    revealResults();
+  }
+
+  async function queryListOfGames(searchInput) {
+    try {
+      let response = await fetch(BASE_URL + GAMES_ENDPOINT + "title=" + searchInput);
+      await statusCheck(response);
+      response = await response.json();
+      displayGames(response, resultsContainer);
+    } catch (error) {
+      handleError();
+    }
+  }
+
+  function displayGames(response) {
+    let resultsContainer = document.querySelector("#results-section section");
+
+    for (let result = 0; result < response.length; result++) {
+
+    }
+
+  }
+
+  function revealResults() {
+    let resultsSection = document.getElementById("results-section");
+    if (!resultsSection.checkVisibility) {
+      resultsSection.classList.replace("invisible", "visible");
+    }
+  }
+
+  async function statusCheck(res) {
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+    return res;
+  }
+
+  function handleError() {
+
+  }
+
 })();
 
 /**
