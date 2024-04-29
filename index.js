@@ -16,10 +16,10 @@
   window.addEventListener("load", init);
 
   function init() {
-    let dealsBtn = document.getElementById("dealsBtn");
+    let dealsBtn = document.getElementById("deals-btn");
     dealsBtn.addEventListener("click", getMoreDeals);
 
-    let searchBtn = document.getElementById("searchBtn");
+    let searchBtn = document.getElementById("search-btn");
     searchBtn.addEventListener("click", searchGames);
   }
 
