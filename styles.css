@@ -7,10 +7,6 @@
   webpage is nighttime vaporwave where the color scheme is purple, yellow, and white.
 */
 
-html {
-  scrollbar-color: #C9CED5 #534978;
-}
-
 body {
   background-image: url("img/retro-vaporwave-background.jpeg");
   background-attachment: fixed;
@@ -27,7 +23,6 @@ a:visited {
 }
 
 main {
-  background-color: #534978;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -36,11 +31,8 @@ main {
 }
 
 button {
-  background-color: #534978;
   border-radius: 30px;
   font-size: 24px;
-  color: #C9CED5;
-  box-shadow: #FCF6B1 0 0 10px;
   margin: 20px;
   padding: 15px;
 }
@@ -68,11 +60,8 @@ span {
 input[type="text"] {
   width: 80%;
   padding: 10px;
-  background-color: #534978;
-  color: #C9CED5;
   font-size: 16pt;
   margin: 10px;
-  box-shadow: #FCF6B1 0 0 10px;
 }
 
 input[type="checkbox"] {
@@ -89,28 +78,24 @@ div {
   width: 350px;
   overflow: hidden;
   overflow-x: scroll;
-  scrollbar-color: #C9CED5 #534978;
   padding-bottom: 20px;
   margin-left: 5px;
   margin-right: 5px;
   justify-content: space-evenly;
 }
 
-div section {
-  text-wrap: wrap;
-  margin: 10px;
-  background-color: #534978;
-  text-align: center;
-  padding: 10px;
-  box-shadow: white 0 0 10px;
-  min-width: 250px;
+html, div {
+  scrollbar-color: #C9CED5 #534978;
 }
 
 header, footer {
-  background-color: #231C3B;
   width: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+header, footer, #deals-and-lookup > section, #results-section > section section {
+  background-color: #231C3B;
 }
 
 h1, h2, h3 {
@@ -119,12 +104,29 @@ h1, h2, h3 {
   font-family: "Playball", sans-serif;
 }
 
-p, h1, h2, h3, label {
+p, h1, h2, h3, label, button, input[type="text"] {
   color: #C9CED5;
 }
 
 h1, footer p {
   text-align: center;
+}
+
+main, button, input[type="text"], div section {
+  background-color: #534978;
+}
+
+button, input[type="text"], #deals-and-lookup > section, #results-section > section section {
+  box-shadow: #FCF6B1 0 0 10px;
+}
+
+div section {
+  text-wrap: wrap;
+  margin: 10px;
+  text-align: center;
+  padding: 10px;
+  box-shadow: white 0 0 10px;
+  min-width: 250px;
 }
 
 header img {
@@ -153,9 +155,7 @@ main > section {
   align-items: center;
   justify-content: flex-start;
   padding: 5px;
-  background-color: #231C3B;
   width: 40%;
-  box-shadow: #FCF6B1 0 0 10px;
   overflow: hidden;
 }
 
@@ -187,8 +187,6 @@ main > section {
   flex-direction: column;
   width: 25%;
   max-height: max-content;
-  background-color: #231C3B;
-  box-shadow: #FCF6B1 0 0 10px;
   padding-top: 5px;
   padding-left: 5px;
   padding-right: 5px;
