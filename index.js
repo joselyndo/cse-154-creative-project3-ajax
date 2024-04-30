@@ -259,8 +259,8 @@
    * @param {HTMLElement} messageContainer - the element that will hold the message
    */
   function addMessage(message, messageContainer) {
-    let errorMessage = document.createElement("p");
-    errorMessage.textContent = message;
-    messageContainer.appendChild(errorMessage);
+    let newMessage = document.createElement("p");
+    newMessage.textContent = message;
+    messageContainer.appendChild(newMessage);
   }
 })();
