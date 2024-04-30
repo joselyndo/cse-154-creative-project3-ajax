@@ -211,7 +211,7 @@
 
   /** Displays a message saying that no video game results were found */
   function displayNoResults() {
-    addMessage("No results found");
+    addMessage("No results found", document.getElementById("results-section"));
   }
 
   /** Reveals the results section */

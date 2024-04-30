@@ -7,6 +7,10 @@
   webpage is nighttime vaporwave where the color scheme is purple, yellow, and white.
 */
 
+html {
+  scrollbar-color: #C9CED5 #534978;
+}
+
 body {
   background-image: url("img/retro-vaporwave-background.jpeg");
   background-attachment: fixed;
